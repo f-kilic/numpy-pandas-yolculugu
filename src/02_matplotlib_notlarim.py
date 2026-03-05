@@ -38,7 +38,7 @@ y1 = [10, 20, 30, 40]
 y2 = [15, 25, 35, 45]
 y3 = [17, 27, 37, 50]  
 
-# DÜZELTME: Profesyonel kullanım için State-based (plt.plot) yerine 
+# Profesyonel kullanım için State-based (plt.plot) yerine 
 # Object-Oriented (fig, ax) yapısına geçiyoruz.
 fig1, ax1 = plt.subplots()
 
