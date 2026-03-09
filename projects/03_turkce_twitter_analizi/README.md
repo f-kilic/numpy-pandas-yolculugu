@@ -1,30 +1,120 @@
-
 # Türkçe Twitter Verisi ile Uçtan Uca NLP ve Metin Sınıflandırma (PoC)
 
 ## 📌 Proje Özeti
-Bu proje, Twitter üzerinden çekilmiş gürültülü metin verilerini Doğal Dil İşleme (NLP) teknikleriyle temizlemek ve Lojistik Regresyon algoritması kullanarak tweetlerin "Ürün Şikayeti/Yorumu (1)" mu yoksa "Günlük Geyik (0)" mi olduğunu ayırt eden bir **Makine Öğrenmesi Boru Hattı (Pipeline)** inşa etmek amacıyla geliştirilmiştir. Bir Konsept Kanıtı (Proof of Concept) çalışmasıdır.
+
+Bu proje, Twitter üzerinden elde edilen gürültülü metin verilerini Doğal Dil İşleme (NLP) teknikleri ile temizleyerek, tweetlerin **"Ürün Şikayeti/Yorumu (1)"** veya **"Günlük Geyik (0)"** olup olmadığını sınıflandıran bir Makine Öğrenmesi boru hattı oluşturmayı amaçlamaktadır.
+
+Proje bir **Proof of Concept (PoC)** çalışmasıdır ve küçük ölçekli bir veri seti üzerinde temel bir NLP sınıflandırma pipeline’ı kurmayı hedefler.
+
+---
 
 ## ⚙️ Kullanılan Teknolojiler
-* **Veri Manipülasyonu:** `Pandas`, `NumPy`
-* **Doğal Dil İşleme (NLP):** Regular Expressions (`Regex`), Stop Words Filtreleme
-* **Makine Öğrenmesi:** `Scikit-Learn` (TF-IDF Vectorizer, Logistic Regression, Train-Test Split)
-* **Veri Görselleştirme:** `Matplotlib`
 
-## 🏗️ Mimari ve Proje Aşamaları
-Proje, "Separation of Concerns" (Kavramların Ayrılığı) prensibine uygun olarak 3 ana modüle bölünmüştür:
+**Veri İşleme**
 
-1. **`01_veri_birlestirme.py`:** Parçalı CSV veri setlerinin birleştirilmesi, gereksiz sütunların (URL vb.) atılması ve etiketlerin (1-0) sayısallaştırılması.
-2. **`02_filtreleme_analizi.py`:** Metinlerin küçük harfe çevrilmesi, noktalama işaretlerinin temizlenmesi, Türkçe "Stop Words" (ve, ama, fakat vb.) analizi ve verinin Makine Öğrenmesine pürüzsüz bir şekilde hazırlanması.
-3. **`03_vektorizasyon.py`:** Temizlenmiş metinlerin **TF-IDF** mimarisi ile matematiksel matrise (594 satır, 9690 benzersiz kelime/sütun) dönüştürülmesi. Lojistik Regresyon modelinin eğitilmesi ve canlı verilerle test edilmesi.
+* Pandas
+* NumPy
 
-## 📊 Model Başarısı ve Performans Karnesi
-Model %80 Eğitim (Train) ve %20 Sınav (Test) verisiyle ayrıştırılarak test edilmiştir.
+**Doğal Dil İşleme (NLP)**
 
-* **Genel Başarı (Accuracy):** %91.67
-* **Precision (Sınıf 1 - Ürün):** 0.98 *(Model bir şeye ürün dediğinde %98 oranında haklı çıkmaktadır.)*
-* **Recall (Sınıf 0 - Geyik):** 0.98 *(Sistem, ürün içermeyen gürültü veriyi ustalıkla ayırt etmektedir.)*
+* Regular Expressions (Regex)
+* Stop Words Filtreleme
 
-## 🔍 Mimari Gözlem ve Gelecek Vizyonu
-Sistem uçtan uca kusursuz çalışmakta olup, canlı testlerde başarılı sonuçlar vermiştir. Ancak, sisteme beslenen laboratuvar verisinde (1197 satır) geçmeyen çok spesifik sektör kelimeleriyle (örn: kozmetik, şampuan) karşılaştığında, model risk almayarak '0' tahmini yapabilmektedir. 
+**Makine Öğrenmesi**
 
-Bu durum bir algoritma hatası değil, veri seti sınırlarıdır. Mimarinin gerçek bir ticari ürüne dönüşmesi için kod blokları değiştirilmeden, sadece başlangıçtaki ham veri setinin (Scale-up) büyütülmesi yeterli olacaktır. 
+* Scikit-Learn
+
+  * TF-IDF Vectorizer
+  * Logistic Regression
+  * Train-Test Split
+
+**Veri Görselleştirme**
+
+* Matplotlib
+
+---
+
+## 🏗️ Proje Mimarisi
+
+Proje, kodun okunabilirliğini ve sürdürülebilirliğini artırmak amacıyla **Separation of Concerns** prensibine uygun şekilde modüler olarak yapılandırılmıştır.
+
+### 1️⃣ Veri Birleştirme
+
+`01_veri_birlestirme.py`
+
+* Parçalı CSV veri setlerinin birleştirilmesi
+* Gereksiz sütunların kaldırılması (URL vb.)
+* Etiketlerin sayısallaştırılması
+
+---
+
+### 2️⃣ Metin Temizleme ve Analiz
+
+`02_filtreleme_analizi.py`
+
+* Metinlerin küçük harfe dönüştürülmesi
+* Noktalama işaretlerinin temizlenmesi
+* Türkçe stop words filtreleme
+* Makine öğrenmesi için metin verisinin hazırlanması
+
+---
+
+### 3️⃣ Vektörizasyon ve Model Eğitimi
+
+`03_vektorizasyon.py`
+
+* Temizlenmiş metinlerin **TF-IDF** yöntemi ile sayısal özelliklere dönüştürülmesi
+* Lojistik Regresyon modeli ile sınıflandırma
+* Modelin test verisi üzerinde değerlendirilmesi
+
+TF-IDF çıktısı:
+
+* **594 tweet**
+* **9690 benzersiz kelime özelliği**
+
+---
+
+## 📊 Model Performansı
+
+Veri seti **%80 eğitim** ve **%20 test** olacak şekilde ayrılmıştır.
+
+| Metric                     | Değer  |
+| -------------------------- | ------ |
+| Accuracy                   | %91.67 |
+| Precision (Sınıf 1 – Ürün) | 0.98   |
+| Recall (Sınıf 0 – Geyik)   | 0.98   |
+
+Bu sonuçlar küçük ölçekli veri üzerinde modelin makul bir ayrım yapabildiğini göstermektedir.
+
+---
+
+## ⚠️ Sınırlamalar
+
+Bu çalışma **küçük ölçekli bir veri seti (~1197 tweet)** üzerinde gerçekleştirilmiştir.
+Model, eğitim verisinde bulunmayan bazı spesifik sektör kelimeleri ile karşılaştığında daha temkinli tahminler yapabilmektedir.
+
+Bu nedenle model performansı **veri setinin kapsamı ile sınırlıdır** ve gerçek dünya uygulamaları için daha büyük ve çeşitli veri setleri gereklidir.
+
+---
+
+## 🔮 Gelecek Geliştirmeler
+
+* Veri setinin büyütülmesi
+* Cross-validation ile model değerlendirmesi
+* Farklı modellerin karşılaştırılması
+
+  * Naive Bayes
+  * Linear SVM
+* Transformer tabanlı NLP modelleri (BERT vb.) ile performans karşılaştırması
+
+---
+
+## 🎯 Amaç
+
+Bu proje, gürültülü sosyal medya verisi üzerinde:
+
+* temel NLP veri temizleme adımlarını
+* TF-IDF tabanlı özellik çıkarımını
+* klasik makine öğrenmesi sınıflandırma pipeline’ını
+
+uygulamalı olarak göstermek amacıyla geliştirilmiştir.
