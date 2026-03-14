@@ -55,7 +55,7 @@ tum_kelimeler = filtreli_veriler['tweet_text'].str.split(expand=True).stack()
 
 # 2. Türkçe'deki en çok kullanılan çöp kelimeleri (Stop Words) tanımlıyoruz
 # Not: Eğer listede marka isminin önüne geçen başka anlamsız kelime görürsen, buraya ekleyebilirsin.
-cop_kelimeler = ['1','olsun','sadece','10','4','aynı','marka','değil','tl','böyle','ürün','olan','oldu','bisküvi','sen','bence','15','sorun','5','memnunum','model','neden','tv','kulaklık','çamaşır','bile','gün','onu','yeni','şu','ki','kullanıyorum','şey','hiç','bana','aynı','bir', 'her', 'menü' , 'önce' ,' kulaklık', 'servis','sadece','10', 'bir', 've', 'daha','bi','ya','aldım','telefon', '2','3','paket','olarak','mu', 'bu', 'da', 'de', 'çok', 'için', 'gibi', 'ile', 'o', 'en', 'ne', 'var', 'mi', 'mı', 'ama', 'kadar', 'diye', 'ben', 'sonra', 'iyi', 'yok']
+cop_kelimeler = ['1','olsun','kendi','ay','size','devam','sadece','10','4','aynı','marka','değil','iki','öyle','saat','tam','yine','allah','bin','tl','böyle','ürün','nasıl','bizim','herkes','artık','tek','beni','zaman','cok','bunu','güzel','biz','ilk','benim','ayakkabı','türk','son','burger','bugün','şimdi','amk','an','olur','iş','olan','oldu','bisküvi','sen','bence','15','sorun','5','memnunum','model','neden','tv','kulaklık','çamaşır','bile','gün','onu','yeni','şu','ki','kullanıyorum','şey','hiç','bana','aynı','bir', 'her', 'menü' , 'önce' ,' kulaklık', 'servis','sadece','10', 'bir', 've', 'daha','bi','ya','aldım','telefon', '2','3','paket','olarak','mu', 'bu', 'da', 'de', 'çok', 'için', 'gibi', 'ile', 'o', 'en', 'ne', 'var', 'mi', 'mı', 'ama', 'kadar', 'diye', 'ben', 'sonra', 'iyi', 'yok']
 
 # 3. Çöp kelimeleri listemizden söküp atıyoruz
 temiz_kelimeler = tum_kelimeler[~tum_kelimeler.isin(cop_kelimeler)]
@@ -86,10 +86,10 @@ print(" 6. AŞAMA: VERİYİ GÖRSELLEŞTİRME (DASHBOARD)")
 print("==================================================")
 
 # İlk 15 markayı alıyoruz (Grafik çok kalabalık olmasın diye)
-en_cok_gecenler = temiz_kelimeler.value_counts().head(15)
+en_cok_gecenler = temiz_kelimeler.value_counts().head(8)
 
 # Grafiğin boyutunu ve tasarımını ayarlıyoruz
-plt.figure(figsize=(12, 6))
+plt.figure(figsize=(15, 6))
 en_cok_gecenler.plot(kind='bar', color='steelblue', edgecolor='black')
 
 # Başlıklar ve etiketler

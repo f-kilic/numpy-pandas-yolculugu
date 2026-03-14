@@ -34,12 +34,12 @@ y_cevaplar = df['label']
 
 # 2. Bıçağı indiriyoruz! %80 Çalışma (Train), %20 Sınav (Test)
 X_train, X_test, y_train, y_test = train_test_split(
-    X_matrisi,          # Sorular (Matrisimiz)
-    y_cevaplar,         # Cevap Anahtarı (1'ler ve 0'lar)
-    test_size=0.20,     # %20'sini sınava ayır, kasaya kilitle
-    random_state=42     # Veriyi rastgele karıştır ama her çalıştırdığımızda aynı şekilde karıştır ki test edebilelim
+    X_matrisi, 
+    y_cevaplar, 
+    test_size=0.20, 
+    random_state=42,
+    stratify=y_cevaplar # YENİ EKLENEN KISIM: Veri dağılımını dengeler
 )
-
 # 3. Bölünmüş verinin boyutlarını kontrol et
 print(f"Eğitim İçin Ayrılan Tweet Sayısı: {X_train.shape[0]}")
 print(f"Sınav (Test) İçin Saklanan Tweet Sayısı: {X_test.shape[0]}")
@@ -56,7 +56,7 @@ print("==================================================")
 model = LogisticRegression(random_state=42)
 
 # 2. Modeli Eğit! (Çalışma sorularını ve cevap anahtarını veriyoruz)
-# Makine şu an 957 tweet'in içindeki 9690 kelimenin matematiğini çözüyor...
+# Makine şu an 957 tweet'in içindeki 6744 kelimenin matematiğini çözüyor...
 model.fit(X_train, y_train)
 print("Model eğitimi tamamlandı! Makine artık kelimelerin gücünü biliyor.")
 

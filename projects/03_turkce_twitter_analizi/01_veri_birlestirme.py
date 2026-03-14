@@ -29,7 +29,7 @@ print("Gereksiz 'url' sütunu silindi.")
 print("\nMevcut Etiketler:", df_toplam['label'].unique())
 
 # 'nonproduct'  yazanları 0, 'product'  yazanları 1 yapıyoruz.
-# 
+
 sozluk = { 'nonproduct': 0,'product': 1,  }
 
 df_toplam['label'] = df_toplam['label'].map(sozluk)
