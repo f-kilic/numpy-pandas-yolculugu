@@ -26,7 +26,7 @@ Proje, kodun okunabilirliğini artırmak amacıyla Separation of Concerns prensi
 * Temizlenmiş ve köklerine ayrılmış metinlerin TF-IDF yöntemi ile sayısal özelliklere dönüştürülmesi.
 * Lojistik Regresyon modeli ile sınıflandırma.
 * Canlı test verilerinde "Eğitim-Çıkarım Asimetrisini" önlemek için test girdilerine de Stemming uygulanması.
-* **TF-IDF Çıktısı (V2):** 957 eğitim tweeti, **6744** benzersiz kelime özelliği (V1'deki 9690'dan düşürüldü).
+* **TF-IDF Çıktısı (V2):** 957 eğitim tweeti, **6735** benzersiz kelime özelliği (V1'deki 9690'dan düşürüldü).
 
 ## 📊 Model Performansı
 Veri seti %80 eğitim ve %20 test olacak şekilde ayrılmıştır.
